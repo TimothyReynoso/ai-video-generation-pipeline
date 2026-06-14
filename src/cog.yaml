@@ -1,0 +1,19 @@
+build:
+  gpu: true
+  system_packages:
+    - "libgl1"
+    - "libglib2.0-0"
+    - "ffmpeg"
+    - "git"
+    - "wget"
+  python_version: "3.12"
+  python_requirements: requirements.txt
+  run:
+    # Clone LTX-2 and install
+    - cd /opt && git clone --depth 1 https://github.com/Lightricks/LTX-2.git
+    - cd /opt/LTX-2 && pip install --no-cache-dir ./packages/ltx-core ./packages/ltx-pipelines
+    - rm -rf /root/.cache/pip /root/.cache/uv /tmp/*
+    # Install pget for fast parallel downloads
+    - curl -o /usr/local/bin/pget -L "https://github.com/replicate/pget/releases/latest/download/pget_$(uname -s)_$(uname -m)" && chmod +x /usr/local/bin/pget
+
+run: "predict.py:Predictor"

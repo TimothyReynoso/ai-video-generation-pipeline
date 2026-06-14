@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+*.mp4
+*.wav
+.env
+.env.*
+models/
+.DS_Store
